@@ -1,4 +1,6 @@
 import { Input } from '../ContactForm/ContactForm.styled';
+import { connect } from 'react-redux';
+import actions from '../../redux/actions';
 
 function Filter({ filter, onChange }) {
   return (
@@ -15,4 +17,16 @@ function Filter({ filter, onChange }) {
   );
 }
 
-export default Filter;
+const mapStateToProps = state => {
+  return {
+    filter: state.contacts.filter,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onChange: e => dispatch(actions.filterItem(e.target.value)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);
