@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-import shortid from 'shortid';
 import ContactForm from 'Componets/ContactForm/ContactForm';
 import ContactList from 'Componets/ContactList/ContactList';
 import Filter from 'Componets/Filter/Filter';

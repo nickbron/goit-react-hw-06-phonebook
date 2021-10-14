@@ -1,7 +1,4 @@
-import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { createReducer } from '@reduxjs/toolkit';
-import actions from './actions';
 import {
   persistStore,
   persistReducer,
@@ -13,27 +10,13 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import contactsReducer from './contacts-reducer';
 
 const PersistConfig = {
   key: 'contacts',
   storage,
   blacklist: ['filter'],
 };
-
-const reducerItems = createReducer([], {
-  [actions.addItem]: (state, { payload }) => [...state, payload],
-  [actions.removeItem]: (state, { payload }) =>
-    state.filter(contact => contact.id !== payload),
-});
-
-const reducerFilter = createReducer('', {
-  [actions.filterItem]: (_, { payload }) => payload,
-});
-
-const contactsReducer = combineReducers({
-  items: reducerItems,
-  filter: reducerFilter,
-});
 
 const store = configureStore({
   reducer: {

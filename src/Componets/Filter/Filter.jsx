@@ -1,8 +1,10 @@
 import { Input } from '../ContactForm/ContactForm.styled';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import actions from '../../redux/actions';
 
-function Filter({ filter, onChange }) {
+export default function Filter() {
+  const filter = useSelector(state => state.contacts.filter);
+  const dispatch = useDispatch();
   return (
     <>
       Find contacts by name:
@@ -11,22 +13,8 @@ function Filter({ filter, onChange }) {
         name="filter"
         autoComplete="off"
         value={filter}
-        onChange={onChange}
+        onChange={e => dispatch(actions.filterItem(e.target.value))}
       />
     </>
   );
 }
-
-const mapStateToProps = state => {
-  return {
-    filter: state.contacts.filter,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onChange: e => dispatch(actions.filterItem(e.target.value)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Filter);
